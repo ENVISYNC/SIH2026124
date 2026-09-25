@@ -1,0 +1,24 @@
+# Central server database. Requires the docker compose plugin; if you do not have it,
+# see `scripts/db-up.sh` for the equivalent plain `docker run`.
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: uip-db
+    environment:
+      POSTGRES_USER: uip
+      POSTGRES_PASSWORD: uip
+      POSTGRES_DB: uip
+    ports:
+      # bound to all interfaces: the second laptop's bus clients talk to the API, but
+      # keeping this reachable is convenient for inspecting the DB during the demo
+      - "5432:5432"
+    volumes:
+      - uip-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uip -d uip"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  uip-pgdata:

@@ -1,0 +1,23 @@
+# Simulated edge fleet. Runs on the edge laptop; needs only network access to the
+# central server. Deploy with: scripts/bundle.sh edge
+[project]
+name = "uip-edge"
+version = "0.1.0"
+description = "Simulated bus fleet - drives routes, detects defects, uploads events"
+requires-python = ">=3.11"
+dependencies = [
+    "uip-schema",
+    "httpx>=0.27",
+]
+
+# Inside the workspace the schema resolves as a workspace member.
+# `scripts/bundle.sh` rewrites this to a vendored path for standalone deploys.
+[tool.uv.sources]
+uip-schema = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["uip_edge"]

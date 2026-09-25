@@ -1,0 +1,27 @@
+# Central server. Runs on the server laptop; needs Postgres/PostGIS reachable.
+# Deploy with: scripts/bundle.sh central
+[project]
+name = "uip-central"
+version = "0.1.0"
+description = "Central urban intelligence platform - ingest, confirm, aggregate, serve"
+requires-python = ">=3.11"
+dependencies = [
+    "uip-schema",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "psycopg[binary,pool]>=3.2",
+    "pydantic-settings>=2.6",
+    "httpx>=0.27",          # smoke test
+]
+
+# Inside the workspace the schema resolves as a workspace member.
+# `scripts/bundle.sh` rewrites this to a vendored path for standalone deploys.
+[tool.uv.sources]
+uip-schema = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["uip_central"]

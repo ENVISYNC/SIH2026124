@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urban Intelligence Platform — Pune</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <header>
+      <h1>Urban Intelligence Platform</h1>
+      <div class="sub">Pune · PMPML fleet · SIH 26124</div>
+    </header>
+
+    <section>
+      <h2>Map layers</h2>
+      <div id="layers"></div>
+    </section>
+
+    <section>
+      <h2>Route filter</h2>
+      <div class="row stack">
+        <label for="route">PMPML route</label>
+        <select id="route"><option value="" selected>All routes</option></select>
+      </div>
+      <div id="route-note" class="note">Loading the route network…</div>
+    </section>
+
+    <section>
+      <h2>Window</h2>
+      <div class="row">
+        <label for="win-congestion">Congestion</label>
+        <select id="win-congestion">
+          <option value="60">last 1 h</option>
+          <option value="180">last 3 h</option>
+          <option value="360">last 6 h</option>
+          <option value="1440" selected>last 24 h</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="win-incidents">Incidents</label>
+        <select id="win-incidents">
+          <option value="1">last 1 h</option>
+          <option value="6">last 6 h</option>
+          <option value="24" selected>last 24 h</option>
+          <option value="168">last 7 d</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="auto">Auto-refresh</label>
+        <select id="auto">
+          <option value="0">off</option>
+          <option value="5000">every 5 s</option>
+          <option value="10000" selected>every 10 s</option>
+          <option value="30000">every 30 s</option>
+        </select>
+      </div>
+      <button class="primary" id="refresh">Refresh now</button>
+      <div id="status"><span class="dot"></span>starting…</div>
+    </section>
+
+    <section>
+      <h2>Fleet &amp; confirmation</h2>
+      <div id="stats"></div>
+    </section>
+
+    <section>
+      <h2>Legend</h2>
+      <div class="legend-item"><span class="swatch" style="background:linear-gradient(90deg,#31c46b,#ffe66d 30%,#ff9f1c 62%,#e63946)"></span>Congestion — free flow to jammed</div>
+      <div class="legend-item"><span class="swatch" style="background:linear-gradient(90deg,#e9d5ff,#c77dff,#7b2cbf)"></span>Confirmed pothole</div>
+      <div class="legend-item"><span class="swatch" style="background:linear-gradient(90deg,#bae6fd,#38bdf8,#0369a1)"></span>Confirmed waterlogging</div>
+      <div class="legend-item"><span class="pin" style="background:#ff4d4f"></span>Accident (ANPR attached)</div>
+      <div class="legend-item"><span class="pin" style="background:#ffb020"></span>Rash driving</div>
+      <div class="legend-item"><span class="pin" style="background:transparent;border:2px dashed #8b98a5"></span>Pending — not yet confirmed</div>
+      <div class="legend-item"><span class="swatch" style="background:#5eead4;height:3px;border-radius:2px"></span>Selected route corridor</div>
+    </section>
+
+    <section>
+      <h2>Base map</h2>
+      <div class="row">
+        <label for="basemap">Tiles</label>
+        <select id="basemap">
+          <option value="dark" selected>Dark</option>
+          <option value="light">Light</option>
+          <option value="osm">OpenStreetMap</option>
+          <option value="satellite">Satellite</option>
+        </select>
+      </div>
+    </section>
+  </aside>
+
+  <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
