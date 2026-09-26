@@ -1,4 +1,4 @@
-# Urban Intelligence Platform (UIP) 
+# Urban Intelligence Platform (UIP)
 
 **SIH26124** — AI-Powered Mobile Urban Intelligence Platform (prototype)
 
